@@ -4,8 +4,9 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/data" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="C:\Users\Marius\anaconda3" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Beugung" />
+    <orderEntry type="module" module-name="Grundpraktikum" />
   </component>
 </module>
