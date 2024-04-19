@@ -68,14 +68,6 @@ def gauss(term):
 
 
 
-m1 = matrix("""
-1 2 3;
-4 5 6
-
-
-""")
-
-
 #Gitter
 
 # 1. Messung
@@ -115,6 +107,10 @@ x3 = matrix ("""
 43.6
 """)
 
+
+
+
+
 # Einzelspalt
 lamda = 633/(10**9)
 b_literatur = 80/(10**6)
@@ -128,6 +124,14 @@ x2 = array([1.05, 2.05, 3.1, 4.15, 5.25])
 
 L3 = 0.466
 x3 = array([0.8, 1.5, 2.4, 3, 3.7, 4.5])
+
+ordnung = array([1, 2, 3, 4, 5])
+alpha1 = x1/(2*L1)
+alpha2 = x2/(2*L2)
+alpha3 = x3/(2*L3)
+
+
+
 # 2. Photodiode
 # 0.5 cm abstände
 L4 = 0.376
