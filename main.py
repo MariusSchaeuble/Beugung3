@@ -132,6 +132,7 @@ alpha3 = x3/(2*L3)
 
 
 
+
 # 2. Photodiode
 # 0.5 cm abstände
 L4 = 0.376
