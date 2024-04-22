@@ -4,9 +4,9 @@ import numpy as np
 import sympy as sym
 from Helpers import identifier, isCharacter
 import math
-from numpy import matrix, array, mean, std, max, linspace
+from numpy import matrix, array, mean, std, max, linspace, ones
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import plot, show, xlabel, ylabel, legend, title, savefig
+from matplotlib.pyplot import plot, show, xlabel, ylabel, legend, title, savefig, errorbar
 import scipy.optimize as opt
 from GPII import *
 from math import sqrt
@@ -120,17 +120,42 @@ sigma_lamda = 0
 b_literatur = 80/(10**6)
 #1. Messung mit Lineal
 L1 = 0.867
+sigma_L1 = 0.03
 x1 = array([1.3, 2.7, 4.1, 5.5, 6.9])# wieder doppelte abstände in cm
 
 
 L2 = 0.659
+sigma_L2 = 0.03
 x2 = array([1.05, 2.05, 3.1, 4.15, 5.25])
 
 L3 = 0.466
+sigma_L3 = 0.03
 x3 = array([0.8, 1.5, 2.4, 3, 3.7, 4.5])
 
 ordnung5 = array([1, 2, 3, 4, 5])
 ordnung6 = array([1, 2, 3, 4, 5, 6])
+
+sigma_alpha1 = ones(5)
+for i in range(5):
+    x = x1[i]
+    sigma_x = 0.005
+    sigma_alpha1[i] = gauss("x/(200*L1)")
+
+
+sigma_alpha2 = ones(5)
+for i in range(5):
+    x = x2[i]
+    sigma_x = 0.005
+    sigma_alpha2[i] = gauss("x/(200*L2)")
+
+
+sigma_alpha3 = ones(6)
+for i in range(6):
+    x = x3[i]
+    sigma_x = 0.005
+    sigma_alpha3[i] = gauss("x/(200*L3)")
+
+
 alpha1 = x1/(200*L1)
 alpha2 = x2/(200*L2)
 alpha3 = x3/(200*L3)
@@ -140,7 +165,7 @@ def linear(x, m):
 
 
 
-plot(ordnung5, alpha1, 'x', label='L = 86cm')
+errorbar(ordnung5, alpha1, sigma_alpha1, None,'x', label='L = 86cm')
 optimizedParameters, s = opt.curve_fit(linear, ordnung5, alpha1)
 m_std = np.sqrt(np.diag(s))
 plt.plot(ordnung5, linear(ordnung5, *optimizedParameters), label="fit")
@@ -159,7 +184,7 @@ b1_geo = lamda/m1
 sigma_b1_geo = gauss("lamda/m1")
 
 
-plot(ordnung5, alpha2, 'x', label='L = 66cm')
+errorbar(ordnung5, alpha2,sigma_alpha2, None, 'x', label='L = 66cm')
 optimizedParameters, s = opt.curve_fit(linear, ordnung5, alpha2)
 m_std = np.sqrt(np.diag(s))
 plt.plot(ordnung5, linear(ordnung5, *optimizedParameters), label="fit")
@@ -178,7 +203,7 @@ sigma_b2_geo = gauss("lamda/m2")
 
 
 
-plot(ordnung6, alpha3, 'x', label='L = 47cm')
+errorbar(ordnung6, alpha3, sigma_alpha3, None, 'x', label='L = 47cm')
 optimizedParameters, s = opt.curve_fit(linear, ordnung6, alpha3)
 m_std = np.sqrt(np.diag(s))
 plt.plot(ordnung6, linear(ordnung6, *optimizedParameters), label="fit")
@@ -205,6 +230,7 @@ print(latexTable(roundCol(array([b_geo]), array([sigma_b_geo]), "\mu m", 6)))
 # 2. Photodiode
 # 0.5 cm abstände
 L4 = 0.376
+sigma_L4 = 0.03
 U = array([0.02, 0.1, 0.19, 0.21, 0.1, 0.01, 0.2, 0.73, 0.15, 0.92, 0.32, 0.16, 2.0, 6.7, 13.8, 13.8, 13.8, 13.8, 13.8, 11.5, 4.87, 1.19, 0.07, 0.53, 1.09, 1.06, 0.57, 0.1, 0.03, 0.2, 0.34, 0.29, 0.12, 0]) # in Volt
 U_fit = array([0.02, 0.1, 0.19, 0.21, 0.1, 0.01, 0.2, 0.73, 0.15, 0.92, 0.32, 0.16, 2.0, 6.7, 11.5, 4.87, 1.19, 0.07, 0.53, 1.09, 1.06, 0.57, 0.1, 0.03, 0.2, 0.34, 0.29, 0.12, 0]) # in Volt
 
@@ -222,10 +248,11 @@ def sincM(x, I0, b, x0):
     return I0*np.sinc(b*(x-x0))**2
 
 
-plot(space, U, 'x', label='Messwerte')
+errorbar(space, U, ones(l), 0.002*ones(l), 'x', label='Messwerte')
 optimizedParameters, s = opt.curve_fit(sincM, space_fit, U_fit, maxfev=10000)
+covar = np.sqrt(np.diag(s))
 plt.plot(space, sincM(space, *optimizedParameters), label="fit")
-xlabel('Verschiebung in m', fontsize=20)
+xlabel('Verschiebung in dm', fontsize=20)
 ylabel('Spannung in V', fontsize=20)
 legend(fontsize=20)
 plt.tight_layout()
@@ -233,9 +260,11 @@ savefig('photo.png')
 show()
 
 freq = optimizedParameters[1]
-b_photo = lamda*L4*freq/pi
+sigma_freq = covar[1]
+b_photo = 10*lamda*L4*freq/pi
+sigma_b_photo = 10*gauss("lamda*L4*freq/pi")
 
-
+print(latexTable(roundCol(array([b_photo]), array([sigma_b_photo]), "\mu m", 6)))
 
 
 
@@ -286,6 +315,7 @@ print(latexTable(roundCol(array([lamda_rot]), array([sigma_lamda_rot]), "n m", 9
 #Fresnelbeugung Lochblende
 
 L_linsfres = 0.995# zur wand
+sigma_L_linsfres = 0.03
 L_linsfres -= 0.025#brennnweite
 
 W_Fresnel = matrix("""
@@ -297,22 +327,33 @@ W_Fresnel = matrix("""
 
 """)# anzahl ordnungen, entfernung schirm zu blende
 
+
 d1 = numpy.ones(5)
+sigma_d1 = ones(5)
 for i in range(5):
     d1[i] = L_linsfres - 0.01*W_Fresnel[i, 1]
+    temp = W_Fresnel[i, 1]
+    sigma_temp = 0.03
+    sigma_d1[i] = gauss("L_linsfres - 0.01*temp")
 
 distance = np.ones(5)
+sigma_distance = ones(5)
 for i in range(5):
     distance[i] = 1/d1[i] + 1/(0.01*W_Fresnel[i, 1])
+    temp1 = d1[i]
+    sigma_temp1 = sigma_d1[i]
+    temp2 = W_Fresnel[i, 1]
+    sigma_temp2 = 0.03
+    sigma_distance[i] = gauss("1/temp1 + 1/(0.01*temp2)")
 
 
 ordnung5 = array([2, 3, 4, 5, 6])
-plot(ordnung5, distance, 'x', label='Messwerte')
+errorbar(ordnung5, distance, sigma_distance, None,'x', label='Messwerte')
 optimizedParameters, s = opt.curve_fit(linear, ordnung5, distance, maxfev=10000)
 plt.plot(ordnung5, linear(ordnung5, *optimizedParameters), label="fit")
 xlabel('Ordnung', fontsize=20)
 ylabel('1/a + 1/b in 1/m', fontsize=20)
-legend(fontsize=20)
+legend(fontsize=20, loc='upper left')
 plt.tight_layout()
 savefig('fresnel.png')
 show()
