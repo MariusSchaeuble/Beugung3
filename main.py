@@ -76,7 +76,7 @@ def gauss(term):
 # 1. Messung
 L1 = 0.675
 g = 1005 #linien pro cm
-x1 = matrix("""
+x1_gitter = matrix("""
 8.5;
 17;
 25.9;
@@ -88,7 +88,7 @@ x1 = matrix("""
 sigma_x = 4/1000 #mm
 # 2. Messung
 L2 = 0.37
-x2 = matrix ("""
+x2_gitter = matrix ("""
 4.5;
 9.4;
 14.2;
@@ -100,7 +100,7 @@ x2 = matrix ("""
 
 #3.Messung
 L3 = 0.443
-x3 = matrix ("""
+x3_gitter = matrix ("""
 5.7;
 14.2;
 17.1;
@@ -365,3 +365,8 @@ sigma_r_fres = gauss("sqrt(2*lamda/steig)")
 
 
 print(latexTable(roundCol(array([r_fres]), array([sigma_r_fres]), "\mu m", 6)))
+
+latexTable(UC(x1_gitter[:, 0], 'cm'), UC(x2_gitter, 'cm'), UC(x3_gitter, 'cm'))
+latexTable(UC(x1, 'cm'), UC(x2, 'cm'), UC(x3, 'cm'))
+latexTable(UC(U, 'V'))
+latexTable(UC(W_Fresnel[:, 0]), UC(W_Fresnel[:, 1], 'cm'))
