@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9aee3894-c1c7-4841-bd99-7788ad8299a4" name="Changes" comment="neues overlay Uc und RC, die auch mazrix akzeptieren">
+    <list default="true" id="9aee3894-c1c7-4841-bd99-7788ad8299a4" name="Changes" comment="pi als target auch in gp hinzugefügt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Grundpraktikum/Helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Grundpraktikum/Helpers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +27,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../Grundpraktikum" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -70,9 +69,6 @@
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
@@ -135,7 +131,8 @@
       <workItem from="1713797687431" duration="4035000" />
       <workItem from="1713856546350" duration="1956000" />
       <workItem from="1713858545523" duration="2576000" />
-      <workItem from="1713874392568" duration="59000" />
+      <workItem from="1713874392568" duration="661000" />
+      <workItem from="1714132919345" duration="62000" />
     </task>
     <task id="LOCAL-00001" summary="test1">
       <option name="closed" value="true" />
@@ -161,7 +158,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713859632743</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="pi als target auch in gp hinzugefügt">
+      <option name="closed" value="true" />
+      <created>1713874506808</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713874506808</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +176,7 @@
     <MESSAGE value="second" />
     <MESSAGE value="test1" />
     <MESSAGE value="neues overlay Uc und RC, die auch mazrix akzeptieren" />
-    <option name="LAST_COMMIT_MESSAGE" value="neues overlay Uc und RC, die auch mazrix akzeptieren" />
+    <MESSAGE value="pi als target auch in gp hinzugefügt" />
+    <option name="LAST_COMMIT_MESSAGE" value="pi als target auch in gp hinzugefügt" />
   </component>
 </project>
