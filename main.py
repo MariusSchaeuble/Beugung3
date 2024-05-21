@@ -223,6 +223,7 @@ sigma_b3_geo = gauss("lamda/m2")
 b_geo = mean([b1_geo, b2_geo, b3_geo])
 sigma_b_geo = std([b1_geo, b2_geo, b3_geo])
 
+latexTable(RC(array([b1_geo, b2_geo, b3_geo]), ones(3)*sigma_b_geo, '\mu m', 6))
 print(latexTable(roundCol(array([b_geo]), array([sigma_b_geo]), "\mu m", 6)))
 
 
@@ -261,8 +262,8 @@ show()
 
 freq = optimizedParameters[1]
 sigma_freq = covar[1]
-b_photo = 10*lamda*L4*freq/pi
-sigma_b_photo = 10*gauss("lamda*L4*freq/pi")
+b_photo = 10*lamda*L4*freq
+sigma_b_photo = 10*gauss("lamda*L4*freq")
 
 print(latexTable(roundCol(array([b_photo]), array([sigma_b_photo]), "\mu m", 6)))
 
@@ -315,7 +316,7 @@ print(latexTable(roundCol(array([lamda_rot]), array([sigma_lamda_rot]), "n m", 9
 #Fresnelbeugung Lochblende
 
 L_linsfres = 0.995# zur wand
-sigma_L_linsfres = 0.03
+sigma_L_linsfres = 0.01
 L_linsfres -= 0.025#brennnweite
 
 W_Fresnel = matrix("""
@@ -333,7 +334,7 @@ sigma_d1 = ones(5)
 for i in range(5):
     d1[i] = L_linsfres - 0.01*W_Fresnel[i, 1]
     temp = W_Fresnel[i, 1]
-    sigma_temp = 0.03
+    sigma_temp = 0.01
     sigma_d1[i] = gauss("L_linsfres - 0.01*temp")
 
 distance = np.ones(5)
